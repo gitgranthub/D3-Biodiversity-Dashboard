@@ -22,31 +22,26 @@ function init() {
         var metadataArray = Object.values(data.metadata);
         var sampleArray = Object.values(data.samples);
         
-        console.log(sampleArray);
-        console.log(metadataArray);
-        console.log(namesArray);
+        //console.log(sampleArray);
+        //console.log(metadataArray);
+        //console.log(namesArray);
 
-        // Create an array of music provider labels
-        //var labels = Object.keys(data.us);
-
-
-      
-        // Sort the data array using the greekSearchResults value
-        data.sort(function(a, b) {
-          return parseFloat(b.samples.sample_values) - parseFloat(a.samples.sample_values);
+        // Sort the sampleArray array using the top OTUs value
+        sampleArray.sort(function(a, b) {
+          return parseFloat(b.sample_values) - parseFloat(a.sample_values);
         });
       
         // Slice the first 10 objects for plotting
-        data = data.slice(0, 10);
+        data = sampleArray.slice(0, 10);
       
         // Reverse the array due to Plotly's defaults
-        data = data.reverse();
+        data = sampleArray.reverse();
       
         // Trace1 for the Greek Data
         var trace1 = {
-          x: data.map(row => row.samples.sample_values),
-          y: data.map(row => row.samples.otu_ids),
-          text: data.map(row => row.samples.otu_labels),
+          x: data.map(row => row.sample_values),
+          y: data.map(row => row.otu_ids),
+          text: data.map(row => row.otu_labels),
           name: "OTU",
           type: "bar",
           orientation: "h"
@@ -67,7 +62,7 @@ function init() {
         };
       
         // Render the plot to the div tag with id "plot"
-        Plotly.newPlot("#bar", chartData, layout);
+        Plotly.newPlot("bar", chartData, layout);
       });
 
     //     switch(dataset) {
