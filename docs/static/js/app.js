@@ -57,10 +57,11 @@ function init() {
             y = [1, 2, 3, 4, 5];
             break;
         }
+        // Note the extra brackets around 'x' and 'y'
+        Plotly.restyle(CHART, "x", [x]);
+        Plotly.restyle(CHART, "y", [y]);
     }
-    // Note the extra brackets around 'x' and 'y'
-    Plotly.restyle(CHART, "x", [x]);
-    Plotly.restyle(CHART, "y", [y]);
+    
 
     // Meta Data Section
     function buildMeta() {
