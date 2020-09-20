@@ -16,31 +16,33 @@ function init() {
         var data = importedData;
         //console.log(data);
 
-        // Object entiies to Array of data????????
+        // Object to Array of data
         // Create an array of each values data
         var namesArray = Object.values(data.names);
         var metadataArray = Object.values(data.metadata);
-        var sampleArray = Object.values(data.samples);
+        var sampleValueArray = Object.values(data.samples);
         
-        //console.log(sampleArray);
+        console.log(sampleValueArray);
         //console.log(metadataArray);
         //console.log(namesArray);
 
+
         // Sort the sampleArray array using the top OTUs value
-        sampleArray.sort(function(a, b) {
+        sampleValueArray.sort(function(a, b) {
           return parseFloat(b.sample_values) - parseFloat(a.sample_values);
         });
       
         // Slice the first 10 objects for plotting
-        data = sampleArray.slice(0, 10);
+        var data = sampleValueArray.slice(0, 10);
+        console.log(data);
       
         // Reverse the array due to Plotly's defaults
-        data = sampleArray.reverse();
+        //data = sampleArray.reverse();
       
         // Trace1 for the Greek Data
         var trace1 = {
           x: data.map(row => row.sample_values),
-          y: data.map(row => row.otu_ids),
+          y: data.map(row => row.sample_values),
           text: data.map(row => row.otu_labels),
           name: "OTU",
           type: "bar",
@@ -126,52 +128,6 @@ function init() {
     //         trow.append("td").text(volume[i]);
     //     }
     // }
-
-    // function buildBarPlot(stock) {
-
-    //     // Build Bar Chart
-    //     d3.json("data/samples.json").then(function(data) {
-            
-    //         // Sort the data array using the greekSearchResults value
-    //         data.sort(function(a, b) {
-    //             return parseFloat(b.greekSearchResults) - parseFloat(a.greekSearchResults);
-    //         });
-
-    //         // Slice the first 10 objects for plotting
-    //         data = data.slice(0, 10);
-
-    //         // Reverse the array due to Plotly's defaults
-    //         data = data.reverse();
-
-    //         // Trace1 for the Greek Data
-    //         var trace1 = {
-    //             x: data.map(row => row.greekSearchResults),
-    //             y: data.map(row => row.greekName),
-    //             text: data.map(row => row.greekName),
-    //             name: "Greek",
-    //             type: "bar",
-    //             orientation: "h"
-    //         };
-
-    //         // data
-    //         var chartData = [trace1];
-
-    //         // Apply the group bar mode to the layout
-    //         var layout = {
-    //             title: "Greek gods search results",
-    //             margin: {
-    //             l: 100,
-    //             r: 100,
-    //             t: 100,
-    //             b: 100
-    //             }
-    //         };
-
-    //         // Render the plot to the div tag with id "plot"
-    //         Plotly.newPlot("plot", chartData, layout);
-    //     });
-    // }
 }
-
 
 init();
