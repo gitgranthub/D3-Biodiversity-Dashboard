@@ -3,31 +3,27 @@
  * Returns an array of values
  * @param {array} rows
  * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Close
- * index 5 - Volume
+ * index 0 - names
+ * index 1 - metadata
+ * index 2 - samples
  */
 
-
-// Drop Down Menu  
 // Initializes the page with a default plot
 function init() {
 
     data = [{
       x: [1, 2, 3, 4, 5],
       y: [1, 2, 4, 8, 16] }];
-  
+
     var CHART = d3.selectAll("#plot").node();
-  
+
     Plotly.newPlot(CHART, data);
-  
+
     // Call updatePlotly() when a change takes place to the DOM
     d3.selectAll("body").on("change", updatePlotly);
-
-    // This function is called when a dropdown menu item is selected
+    
+    // Drop Down Menu
+    // This function is called when a dropdown menu item is selected -g
     function updatePlotly() {
         // Use D3 to select the dropdown menu
         var dropdownMenu = d3.select("#selDataset");
@@ -71,7 +67,7 @@ function init() {
         // Get data from samples.json
         d3.json("data/samples.json").then(function(data) {
 
-            // Grab values from the response json object to build the plots
+            // Grab values from the response json object to build the plots -c
             var name = data.dataset.name;
             var stock = data.dataset.dataset_code;
             var startDate = data.dataset.start_date;
