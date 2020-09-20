@@ -14,11 +14,22 @@ function init() {
     d3.json("data/samples.json").then((importedData) => {
         // console.log(importedData);
         var data = importedData;
-        console.log(data);
+        //console.log(data);
 
         // Object entiies to Array of data????????
-
+        // Create an array of each values data
+        var namesArray = Object.values(data.names);
+        var metadataArray = Object.values(data.metadata);
+        var sampleArray = Object.values(data.samples);
         
+        console.log(sampleArray);
+        console.log(metadataArray);
+        console.log(namesArray);
+
+        // Create an array of music provider labels
+        //var labels = Object.keys(data.us);
+
+
       
         // Sort the data array using the greekSearchResults value
         data.sort(function(a, b) {
