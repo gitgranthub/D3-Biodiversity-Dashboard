@@ -7,6 +7,8 @@
  * index 1 - metadata
  * index 2 - samples
  */
+
+// not sure if I need this unpack function yet
 function unpack(rows, index) {
     return rows.map(function(row) {
       return row[index];
@@ -21,10 +23,12 @@ function init() {
     // Append names to the selDataset dropdown
     d3.json("data/samples.json").then((data) => {
         var nameIds = data.names;
+        console.log(nameIds)
+        
         nameIds.forEach((i) => {
           selDataset
           .append("option")
-          .text(id)
+          .text(i)
           .property("value", i);
     });
 
@@ -36,6 +40,60 @@ function init() {
     })
 }
 
+// build the charts for the dashboard
+function buildCharts(sampleID) {
+
+    // grab sample data from the samples.json file  
+    d3.json("data/samples.json").then((data) => {
+        
+        // Object to Array of data
+        // Create an array of each values data
+        // creating the variables to use in charting
+        var samples = data.samples;
+        console.log(samples);
+        var samplesFilter = samples.filter(sampleObject => sampleObject.id == sampleID);
+        console.log(samplesFilter);
+        var result = samplesFilter[0];
+        console.log(result);
+        var otu_ids = result.otu_ids;
+        console.log(otu_ids);
+        var otu_labels = result.otu_labels; 
+        console.log(otu_labels);
+        var sample_values = result.sample_values;
+        console.log(sample_values);
+
+
+        /// !!!*** REMOVE THIS SORTING and perform it in the trace
+        // Sort the sampleArray array using the top OTUs value
+        //     sampleValueArray.sort(function(a, b) {
+        //       return parseFloat(b.sample_values) - parseFloat(a.sample_values);
+        //     });
+        
+        //     // Slice the first 10 objects for plotting
+        //     var data = sampleValueArray.slice(0, 10);
+        //     console.log(data);
+        
+        //     // Reverse the array due to Plotly's defaults
+        //     data = data.reverse();
+        
+
+        // Bar Chart
+        var trace1 = {
+            x: sample_values.slice(0,10).reverse(),
+            y: otu_ids.slice(0,10).map(oIDs => `OTU ${oIDs}`).reverse(),
+            text: otu_labels.slice(0,10).reverse(),
+            name: "OTU",
+            type: "bar",
+            orientation: "h"
+        };
+        var data = [trace1];
+        var layout = {
+            title: "Top 10 OTUs for Subject" + sampleID,
+            margin: {l: 100, r: 100, t: 40, b: 100}
+        };
+      Plotly.newPlot("bar", data, layout);  
+    });
+}
     // d3.json("data/samples.json").then((importedData) => {
     //     // console.log(importedData);
     //     var data = importedData;
@@ -58,14 +116,14 @@ function init() {
     //     sampleValueArray.sort(function(a, b) {
     //       return parseFloat(b.sample_values) - parseFloat(a.sample_values);
     //     });
-      
+        
     //     // Slice the first 10 objects for plotting
     //     var data = sampleValueArray.slice(0, 10);
     //     console.log(data);
-      
+        
     //     // Reverse the array due to Plotly's defaults
     //     data = data.reverse();
-      
+        
     //     // Trace1 for the Greek Data
     //     var trace1 = {
     //       x: data.map(row => row.sample_values),
@@ -74,12 +132,12 @@ function init() {
     //       name: "OTU",
     //       type: "bar",
     //       orientation: "h"
-    
+
     //     };
-      
+        
     //     // data
     //     var chartData = [trace1];
-      
+        
     //     // Apply the group bar mode to the layout
     //     var layout = {
     //       //title: "Top 10 OTUs",
@@ -90,7 +148,7 @@ function init() {
     //         b: 100
     //       }
     //     };
-      
+        
     //     // Render the plot to the div tag with id "plot"
     //     Plotly.newPlot("bar", chartData, layout);
     //   });
@@ -120,7 +178,7 @@ function init() {
     //     Plotly.restyle(CHART, "x", [x]);
     //     Plotly.restyle(CHART, "y", [y]);
 
-    
+
 
     // // Meta Data Section
     // function buildMeta() {
@@ -156,6 +214,6 @@ function init() {
     //         trow.append("td").text(volume[i]);
     //     }
     // }
-// }
+    // }
 
 init();
