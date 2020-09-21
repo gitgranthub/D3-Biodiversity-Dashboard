@@ -22,7 +22,7 @@ function init() {
     d3.json("data/samples.json").then((data) => {
         var nameIds = data.names;
         nameIds.forEach((i) => {
-          selector
+          selDataset
           .append("option")
           .text(id)
           .property("value", i);
