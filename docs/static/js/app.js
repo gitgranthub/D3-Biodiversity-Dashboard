@@ -7,6 +7,11 @@
  * index 1 - metadata
  * index 2 - samples
  */
+function unpack(rows, index) {
+    return rows.map(function(row) {
+      return row[index];
+    });
+}
 
 // Initializes the page with a default plot
 function init() {
@@ -21,9 +26,8 @@ function init() {
         var namesArray = Object.values(data.names);
         var metadataArray = Object.values(data.metadata);
         var sampleValueArray = Object.values(data.samples);
-        
-        console.log(sampleValueArray);
-        //console.log(metadataArray);
+        //var otuIds = (data.samples.otu_ids);
+        //console.log(otuIds);
         //console.log(namesArray);
 
 
@@ -34,19 +38,20 @@ function init() {
       
         // Slice the first 10 objects for plotting
         var data = sampleValueArray.slice(0, 10);
-        console.log(data);
+        //console.log(data);
       
         // Reverse the array due to Plotly's defaults
-        //data = sampleArray.reverse();
+        data = data.reverse();
       
         // Trace1 for the Greek Data
         var trace1 = {
-          x: data.map(row => row.sample_values),
+          x: data.map(row => row.otu_ids),
           y: data.map(row => row.sample_values),
           text: data.map(row => row.otu_labels),
           name: "OTU",
           type: "bar",
           orientation: "h"
+    
         };
       
         // data
@@ -54,7 +59,7 @@ function init() {
       
         // Apply the group bar mode to the layout
         var layout = {
-          title: "Top 10 OTUs",
+          //title: "Top 10 OTUs",
           margin: {
             l: 100,
             r: 100,
