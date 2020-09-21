@@ -15,62 +15,85 @@ function unpack(rows, index) {
 
 // Initializes the page with a default plot
 function init() {
+    // First Step is to grab the dropdown selector to select each dataset
+    var selDataset = d3.select("#selDataset");
 
-    d3.json("data/samples.json").then((importedData) => {
-        // console.log(importedData);
-        var data = importedData;
+    // Append names to the selDataset dropdown
+    d3.json("data/samples.json").then((data) => {
+        var nameIds = data.names;
+        nameIds.forEach((i) => {
+          selector
+          .append("option")
+          .text(id)
+          .property("value", i);
+    });
+
+
+    // Initial nameId used to build plots on site load
+    const initName = nameIds[0];
+    buildCharts(initName);
+    buildMetadata(initName);
+    })
+}
+
+    // d3.json("data/samples.json").then((importedData) => {
+    //     // console.log(importedData);
+    //     var data = importedData;
         //console.log(data);
-
+        
         // Object to Array of data
         // Create an array of each values data
-        var namesArray = Object.values(data.names);
-        var metadataArray = Object.values(data.metadata);
-        var sampleValueArray = Object.values(data.samples);
-        //var otuIds = (data.samples.otu_ids);
-        //console.log(otuIds);
-        //console.log(namesArray);
+        // var namesArray = Object.values(data.names);
+        // var metadataArray = Object.values(data.metadata);
+        // var samplesArray = Object.values(data.samples);
+        // var sampleValueArray = Object.keys(samplesArray.sample_values);
+        // var otuIds = Object.keys(samplesArray.out_ids);
+        // console.log(otuIds);
+        // console.log(sampleValueArray);
+        
+        
 
 
         // Sort the sampleArray array using the top OTUs value
-        sampleValueArray.sort(function(a, b) {
-          return parseFloat(b.sample_values) - parseFloat(a.sample_values);
-        });
+    //     sampleValueArray.sort(function(a, b) {
+    //       return parseFloat(b.sample_values) - parseFloat(a.sample_values);
+    //     });
       
-        // Slice the first 10 objects for plotting
-        var data = sampleValueArray.slice(0, 10);
-        //console.log(data);
+    //     // Slice the first 10 objects for plotting
+    //     var data = sampleValueArray.slice(0, 10);
+    //     console.log(data);
       
-        // Reverse the array due to Plotly's defaults
-        data = data.reverse();
+    //     // Reverse the array due to Plotly's defaults
+    //     data = data.reverse();
       
-        // Trace1 for the Greek Data
-        var trace1 = {
-          x: data.map(row => row.otu_ids),
-          y: data.map(row => row.sample_values),
-          text: data.map(row => row.otu_labels),
-          name: "OTU",
-          type: "bar",
-          orientation: "h"
+    //     // Trace1 for the Greek Data
+    //     var trace1 = {
+    //       x: data.map(row => row.sample_values),
+    //       y: data.map(row => row.sample_values),
+    //       text: data.map(row => row.otu_labels),
+    //       name: "OTU",
+    //       type: "bar",
+    //       orientation: "h"
     
-        };
+    //     };
       
-        // data
-        var chartData = [trace1];
+    //     // data
+    //     var chartData = [trace1];
       
-        // Apply the group bar mode to the layout
-        var layout = {
-          //title: "Top 10 OTUs",
-          margin: {
-            l: 100,
-            r: 100,
-            t: 100,
-            b: 100
-          }
-        };
+    //     // Apply the group bar mode to the layout
+    //     var layout = {
+    //       //title: "Top 10 OTUs",
+    //       margin: {
+    //         l: 100,
+    //         r: 100,
+    //         t: 100,
+    //         b: 100
+    //       }
+    //     };
       
-        // Render the plot to the div tag with id "plot"
-        Plotly.newPlot("bar", chartData, layout);
-      });
+    //     // Render the plot to the div tag with id "plot"
+    //     Plotly.newPlot("bar", chartData, layout);
+    //   });
 
     //     switch(dataset) {
     //         case "dataset1":
@@ -133,6 +156,6 @@ function init() {
     //         trow.append("td").text(volume[i]);
     //     }
     // }
-}
+// }
 
 init();
