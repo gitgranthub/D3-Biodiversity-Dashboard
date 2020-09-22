@@ -1,3 +1,4 @@
+// ** not sure if I need this helper function still
 /**
  * Helper function to select stock data
  * Returns an array of values
@@ -8,7 +9,7 @@
  * index 2 - samples
  */
 
-// not sure if I need this unpack function yet
+// ** not sure if I need this unpack function yet
 function unpack(rows, index) {
     return rows.map(function(row) {
       return row[index];
@@ -46,7 +47,6 @@ function buildCharts(sampleID) {
     // grab sample data from the samples.json file  
     d3.json("data/samples.json").then((data) => {
         
-        // Object to Array of data
         // Create an array of each values data
         // creating the variables to use in charting
         var samples = data.samples;
@@ -97,126 +97,30 @@ function buildCharts(sampleID) {
       Plotly.newPlot("bar", data, layout);  
     });
 }
-    // d3.json("data/samples.json").then((importedData) => {
-    //     // console.log(importedData);
-    //     var data = importedData;
-        //console.log(data);
-        
-        // Object to Array of data
-        // Create an array of each values data
-        // var namesArray = Object.values(data.names);
-        // var metadataArray = Object.values(data.metadata);
-        // var samplesArray = Object.values(data.samples);
-        // var sampleValueArray = Object.keys(samplesArray.sample_values);
-        // var otuIds = Object.keys(samplesArray.out_ids);
-        // console.log(otuIds);
-        // console.log(sampleValueArray);
-        
-        
+// Gather and update metadata for the Demographic Info Panel
+function buildMetadata(meta) {
+    d3.json("data/samples.json").then((data) => {
+        var metadata = data.metadata;
+        console.log(metadata);
+        var metaArray = metadata.filter(samplePick => samplePick.id == meta);
+        console.log(metadata);
+        var result = metaArray[0];
+        // Select the panel in the HTML file for assigning the metadata
+        var metaPanel = d3.select("#sample-metadata");
 
+        // clear panel before populating
+        metaPanel.html("");
+        // Populate the Demographic panel. Remember to Uppercase the Key
+        Object.entries(result).forEach(([key, value]) => {
+            metaPanel.append("h6").text(`${key.toUpperCase()}: ${value}`)
+        })
+    })
+}
 
-        // Sort the sampleArray array using the top OTUs value
-    //     sampleValueArray.sort(function(a, b) {
-    //       return parseFloat(b.sample_values) - parseFloat(a.sample_values);
-    //     });
-        
-    //     // Slice the first 10 objects for plotting
-    //     var data = sampleValueArray.slice(0, 10);
-    //     console.log(data);
-        
-    //     // Reverse the array due to Plotly's defaults
-    //     data = data.reverse();
-        
-    //     // Trace1 for the Greek Data
-    //     var trace1 = {
-    //       x: data.map(row => row.sample_values),
-    //       y: data.map(row => row.sample_values),
-    //       text: data.map(row => row.otu_labels),
-    //       name: "OTU",
-    //       type: "bar",
-    //       orientation: "h"
-
-    //     };
-        
-    //     // data
-    //     var chartData = [trace1];
-        
-    //     // Apply the group bar mode to the layout
-    //     var layout = {
-    //       //title: "Top 10 OTUs",
-    //       margin: {
-    //         l: 100,
-    //         r: 100,
-    //         t: 100,
-    //         b: 100
-    //       }
-    //     };
-        
-    //     // Render the plot to the div tag with id "plot"
-    //     Plotly.newPlot("bar", chartData, layout);
-    //   });
-
-    //     switch(dataset) {
-    //         case "dataset1":
-    //         x = [1, 2, 3, 4, 5];
-    //         y = [1, 2, 4, 8, 16];
-    //         break;
-
-    //         case "dataset2":
-    //         x = [10, 20, 30, 40, 50];
-    //         y = [1, 10, 100, 1000, 10000];
-    //         break;
-
-    //         case "dataset3":
-    //         x = [100, 200, 300, 400, 500];
-    //         y = [10, 100, 50, 10, 0];
-    //         break;
-
-    //         default:
-    //         x = [1, 2, 3, 4, 5];
-    //         y = [1, 2, 3, 4, 5];
-    //         break;
-    //     }
-    //     // Note the extra brackets around 'x' and 'y'
-    //     Plotly.restyle(CHART, "x", [x]);
-    //     Plotly.restyle(CHART, "y", [y]);
-
-
-
-    // // Meta Data Section
-    // function buildMeta() {
-    //     // Get data from samples.json
-    //     d3.json("data/samples.json").then(function(data) {
-
-    //         // Grab values from the response json object to build the plots -c
-    //         var name = data.dataset.name;
-    //         var stock = data.dataset.dataset_code;
-    //         var startDate = data.dataset.start_date;
-    //         var endDate = data.dataset.end_date;
-    //         var dates = unpack(data.dataset.data, 0);
-    //         var openingPrices = unpack(data.dataset.data, 1);
-    //         var highPrices = unpack(data.dataset.data, 2);
-    //         var lowPrices = unpack(data.dataset.data, 3);
-    //         var closingPrices = unpack(data.dataset.data, 4);
-    //     })
-    // }
-
-    // getMonthlyData();
-
-    // function buildTable(dates, openPrices, highPrices, lowPrices, closingPrices, volume) {
-    //     var table = d3.select("#summary-table");
-    //     var tbody = table.select("tbody");
-    //     var trow;
-    //     for (var i = 0; i < 12; i++) {
-    //         trow = tbody.append("tr");
-    //         trow.append("td").text(dates[i]);
-    //         trow.append("td").text(openPrices[i]);
-    //         trow.append("td").text(highPrices[i]);
-    //         trow.append("td").text(lowPrices[i]);
-    //         trow.append("td").text(closingPrices[i]);
-    //         trow.append("td").text(volume[i]);
-    //     }
-    // }
-    // }
-
+// Return the data when a new subject is picked in the dropdown
+function optionChanged(newSubject) {
+    buildCharts(newSubject);
+    buildMetadata(newSubject);
+    }
+// load the initial data function when site loads
 init();
