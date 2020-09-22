@@ -2,7 +2,7 @@
 .dashboard {
   border: 2px solid rgba(218, 218, 218);
   border-radius: 5px;
-  background-color: rgb(202, 202, 202);
+  /*background-color: rgb(202, 202, 202);*/
   margin-bottom: 3rem; 
 }
 #explainer {
@@ -39,5 +39,12 @@
   background-image: none;
   background-color: rgb(78, 105, 228);
   color: white;
+  border: 2px solid rgba(218, 218, 218, 0.7);
+  border-radius: 5px;
+
+}
+.panel-body {
+  border: 2px solid rgba(218, 218, 218, 0.7);
+  border-radius: 5px;
 
 }

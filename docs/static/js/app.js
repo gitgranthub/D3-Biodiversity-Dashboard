@@ -91,11 +91,43 @@ function buildCharts(sampleID) {
         };
         var data = [trace1];
         var layout = {
-            title: "Top 10 OTUs for Subject" + sampleID,
+            ///title: "Top 10 OTUs for Subject" + sampleID,///
+            title: {
+             text: 'Top 10 OTUs for Subject '+ sampleID,
+             font: {
+               family: 'Arial, monospace',
+               size: 18,
+               color: 'rgb(10,10,10)'
+             }
+            },
+           
             margin: {l: 100, r: 100, t: 40, b: 100}
         };
       Plotly.newPlot("bar", data, layout);  
-    });
+
+      // Bubble Chart
+      var trace1 = {
+          
+          x: otu_ids,
+          y: sample_values,
+          text: otu_labels,
+          mode: 'markers',
+          marker: {
+          size: sample_values,
+          color: otu_ids,
+          colorscale:"Electric"
+          }
+      };
+      var data = [trace1];
+      var layout = {
+          title: 'Bacteria Cultures per Sample',
+          showlegend: false,
+          hovermode: 'closest',
+          xaxis: {title:"OTU (Operational Taxonomic Unit) ID " + sampleID},
+          margin: {t:30}
+      };
+      Plotly.newPlot('bubble', data, layout); 
+  });
 }
 // Gather and update metadata for the Demographic Info Panel
 function buildMetadata(meta) {
