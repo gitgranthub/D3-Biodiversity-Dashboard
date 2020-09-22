@@ -91,19 +91,19 @@ function buildCharts(sampleID) {
         };
         var data = [trace1];
         var layout = {
-            ///title: "Top 10 OTUs for Subject" + sampleID,///
-            title: {
+            xaxis: {title: "Top 10 OTUs for Subject " + sampleID},
+            /*title: {
              text: 'Top 10 OTUs for Subject '+ sampleID,
              font: {
                family: 'Arial, monospace',
                size: 18,
                color: 'rgb(10,10,10)'
              }
-            },
+            },*/
            
             margin: {l: 100, r: 100, t: 40, b: 100}
         };
-      Plotly.newPlot("bar", data, layout, {displaylogo: false});  
+      Plotly.newPlot("bar", data, layout, {displaylogo: false}, {modebar: 'l'});  
 
       // Bubble Chart
       var trace1 = {
@@ -120,10 +120,9 @@ function buildCharts(sampleID) {
       };
       var data = [trace1];
       var layout = {
-          title: 'Bacteria Cultures per Sample',
           showlegend: false,
           hovermode: 'closest',
-          xaxis: {title:"OTU (Operational Taxonomic Unit) ID " + sampleID},
+          xaxis: {title:"OTU Sample Amounts for ID " + sampleID},
           margin: {t:30}
       };
       Plotly.newPlot('bubble', data, layout, {displaylogo: false}); 
