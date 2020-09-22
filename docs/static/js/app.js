@@ -84,7 +84,10 @@ function buildCharts(sampleID) {
             text: otu_labels.slice(0,10).reverse(),
             name: "OTU",
             type: "bar",
-            orientation: "h"
+            orientation: "h",
+            marker: {
+                color: 'rgb(78, 105, 228)'
+              }
         };
         var data = [trace1];
         var layout = {
