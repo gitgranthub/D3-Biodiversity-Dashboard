@@ -103,7 +103,7 @@ function buildCharts(sampleID) {
            
             margin: {l: 100, r: 100, t: 40, b: 100}
         };
-      Plotly.newPlot("bar", data, layout);  
+      Plotly.newPlot("bar", data, layout, {displaylogo: false});  
 
       // Bubble Chart
       var trace1 = {
@@ -126,7 +126,7 @@ function buildCharts(sampleID) {
           xaxis: {title:"OTU (Operational Taxonomic Unit) ID " + sampleID},
           margin: {t:30}
       };
-      Plotly.newPlot('bubble', data, layout); 
+      Plotly.newPlot('bubble', data, layout, {displaylogo: false}); 
   });
 }
 // Gather and update metadata for the Demographic Info Panel
