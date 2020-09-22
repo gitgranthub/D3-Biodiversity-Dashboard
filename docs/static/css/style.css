@@ -3,7 +3,8 @@
   border: 2px solid rgba(218, 218, 218);
   border-radius: 5px;
   /*background-color: rgb(202, 202, 202);*/
-  margin-bottom: 3rem; 
+  margin-bottom: 3rem;
+  overflow: hidden; 
 }
 #explainer {
     border: 2px solid rgba(218, 218, 218, 0.7);
@@ -47,4 +48,19 @@
   border: 2px solid rgba(218, 218, 218, 0.7);
   border-radius: 5px;
 
+}
+#bar {
+  outline: 2px solid rgba(218, 218, 218, 0.7);
+  margin: 0px;
+  overflow: hidden;
+}
+#gauge {
+  outline: 2px solid rgba(218, 218, 218, 0.7);
+  margin: 0px;
+  overflow: hidden;
+}
+#bubble {
+  outline: 2px solid rgba(218, 218, 218, 0.7);
+  margin: 0px;
+  overflow: hidden;
 }
