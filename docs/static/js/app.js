@@ -157,34 +157,15 @@ function buildMetadata(meta) {
         var data = [
          {
            domain: { x: [0, 1], y: [0, 1] },
+           marker: {size: 28, color:'850000'},
+           value: result,
            mode: "gauge+number",
            type: "indicator",
-           marker: {size: 28, color:'850000'},
-           value: result.wfreq,
            title: 'Belly Button Washing Frequency<br> Scrubs per Week',
            titlefont: {family: 'Arial, Helvetica, sans-serif'},
            delta: { reference: 160 },
            gauge: { axis: { visible: false, range: [0, 250] } },
          },
-        //  {
-        //    type: "indicator",
-        //    value: 120,
-        //    gauge: {
-        //      shape: "bullet",
-        //      axis: {
-        //        visible: false,
-        //        range: [-200, 200]
-        //      }
-        //    },
-        //    domain: { x: [0.1, 0.5], y: [0.15, 0.35] }
-        //  },
-        //  {
-        //    type: "indicator",
-        //    mode: "number+delta",
-        //    value: 300,
-        //    domain: { row: 0, column: 1 }
-        //  },
-        //  { type: "indicator", mode: "delta", value: 40, domain: { row: 1, column: 1 } }
        ];
        
        var layout = {
