@@ -165,7 +165,6 @@ function buildMetadata(meta) {
            titlefont: {family: 'Arial, Helvetica, sans-serif'},
            delta: { reference: 160 },
            gauge: { axis: { visible: false, range: [0, 250] } },
-           domain: { row: 0, column: 0 }
          },
         //  {
         //    type: "indicator",
@@ -189,21 +188,15 @@ function buildMetadata(meta) {
        ];
        
        var layout = {
-         width: 600,
-         height: 400,
-         margin: { t: 200, b: 2, l: 60, r: 2 },
-         grid: { rows: 2, columns: 2, pattern: "independent" },
-        //  template: {
-        //    data: {
-        //      indicator: [
-        //        {
-        //         mode: "number+delta+gauge",
-        //         delta: { reference: 90 }
-        //        }
-        //      ]
-        //    }
-        //  }
-       };
+         width: 400,
+         height: 350,
+         margin: { t: 100, b: 2, l: 50, r: 2 },
+         line: {
+          color: 'red'
+          },
+          paper_bgcolor: "white",
+          font: { color: "black", family: "Arial" }
+        };
        
        Plotly.newPlot('gauge', data, layout);
     })
