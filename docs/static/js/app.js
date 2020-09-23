@@ -153,31 +153,59 @@ function buildMetadata(meta) {
         
 
         // Adding Gauge Chart
-        // *** This is code raw from plotly **customize**
+        // *** This is code is partially from https://codepen.io/ascotto/pen/eGNaqe?editors=0011**
         var data = [
          {
-           domain: { x: [0, 1], y: [0, 1] },
-           marker: {size: 28, color:'850000'},
-           value: result,
-           mode: "gauge+number",
-           type: "indicator",
-           title: 'Belly Button Washing Frequency<br> Scrubs per Week',
-           titlefont: {family: 'Arial, Helvetica, sans-serif'},
-           delta: { reference: 160 },
-           gauge: { axis: { visible: false, range: [0, 250] } },
+          type: "indicator",
+          mode: "gauge+number",
+          //type: 'scatter',
+          domain: { x: [0, 1], y: [0, 1] },
+          //x: [0], y:[0],
+          marker: {size: 18, color:'850000'},
+          showlegend: false,
+          name: 'speed',  
+          //text: level,
+          title: 'Belly Button Washing Frequency<br> Scrubs per Week',
+          titlefont: {family: 'Arial, Helvetica, sans-serif'},
+          hoverinfo: 'text+name'},
+          {values: result.wfreq,
+          rotation: 90,
+          text: result,
+          textinfo: 'text',
+          textposition:'inside',	  
+          marker: {colors:['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
+                      'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
+                      'rgba(210, 206, 145, .5)', 'rgba(232, 226, 202, .5)',
+                      'rgba(255, 255, 255, 0)']},
+          labels: ['151-180', '121-150', '91-120', '61-90', '31-60', '0-30', ''],
+          hoverinfo: 'label',
+          hole: .5,
+          //type: 'gauge',
+          showlegend: false
          },
        ];
        
        var layout = {
-         width: 400,
-         height: 350,
-         margin: { t: 100, b: 2, l: 50, r: 2 },
-         line: {
-          color: 'red'
-          },
-          paper_bgcolor: "white",
-          font: { color: "black", family: "Arial" }
-        };
+        width: 450,
+        height: 400,
+        margin: { t: 25, r: 25, l: 25, b: 25 },
+        shapes:[{
+            type: 'path',
+            path: gaugePointer(90),
+            fillcolor: '850000',
+            line: {
+              color: '850000'
+            }
+          }],
+        //title: '<b>Gauge</b> <br> Speed 0-100',
+        //autosize:true,
+        //height: 450,
+        //width: 400,
+        xaxis: {zeroline:false, showticklabels:false,
+             showgrid: false, range: [-1, 1]},
+        yaxis: {zeroline:false, showticklabels:false,
+             showgrid: false, range: [-1, 1]}
+      };
        
        Plotly.newPlot('gauge', data, layout);
     })
