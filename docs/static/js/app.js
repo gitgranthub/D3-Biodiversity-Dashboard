@@ -156,8 +156,11 @@ function buildMetadata(meta) {
         // *** This is code raw from plotly **customize**
         var data = [
          {
+           domain: { x: [0, 1], y: [0, 1] },
+           mode: "gauge+number",
            type: "indicator",
-           value: 200,
+           marker: {size: 28, color:'850000'},
+           value: result.wfreq,
            title: 'Belly Button Washing Frequency<br> Scrubs per Week',
            titlefont: {family: 'Arial, Helvetica, sans-serif'},
            delta: { reference: 160 },
@@ -188,18 +191,18 @@ function buildMetadata(meta) {
        var layout = {
          width: 600,
          height: 400,
-         //margin: { t: 25, b: 25, l: 25, r: 25 },
+         margin: { t: 200, b: 2, l: 60, r: 2 },
          grid: { rows: 2, columns: 2, pattern: "independent" },
-         template: {
-           data: {
-             indicator: [
-               {
-                mode: "number+delta+gauge",
-                delta: { reference: 90 }
-               }
-             ]
-           }
-         }
+        //  template: {
+        //    data: {
+        //      indicator: [
+        //        {
+        //         mode: "number+delta+gauge",
+        //         delta: { reference: 90 }
+        //        }
+        //      ]
+        //    }
+        //  }
        };
        
        Plotly.newPlot('gauge', data, layout);
