@@ -74,7 +74,7 @@
 #gauge {
   /* outline: 2px solid rgba(218, 218, 218, 0.7); */
   margin-top: 40px;
-  padding: auto;
+  padding: 5px;
 }
 #bubble {
   /*outline: 2px solid rgba(218, 218, 218, 0.7);*/
