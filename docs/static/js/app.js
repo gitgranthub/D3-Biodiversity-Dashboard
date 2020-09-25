@@ -1,25 +1,3 @@
-// ** not sure if I need this helper function still
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - names
- * index 1 - metadata
- * index 2 - samples
- */
-// Template Literals is the same as F strings in Python
-//var name = "Jay"
-//`Hello my name is ${name}.` == f"Hello my name is {name}"
-// Referencing json data
-//d3.json("samples.json").then((data)......
-
-// ** not sure if I need this unpack function yet
-function unpack(rows, index) {
-    return rows.map(function(row) {
-      return row[index];
-    });
-}
 
 // Initializes the page with a default plot
 function init() {
@@ -29,7 +7,7 @@ function init() {
     // Append names to the selDataset dropdown
     d3.json("data/samples.json").then((data) => {
         var nameIds = data.names;
-        console.log(nameIds)
+        // console.log(nameIds)
         
         nameIds.forEach((i) => {
           selDataset
@@ -55,32 +33,18 @@ function buildCharts(sampleID) {
         // Create an array of each values data
         // creating the variables to use in charting
         var samples = data.samples;
-        console.log(samples);
+        // console.log(samples);
         var samplesFilter = samples.filter(sampleObject => sampleObject.id == sampleID);
-        console.log(samplesFilter);
+        // console.log(samplesFilter);
         var result = samplesFilter[0];
-        console.log(result);
+        // console.log(result);
         var otu_ids = result.otu_ids;
-        console.log(otu_ids);
+        // console.log(otu_ids);
         var otu_labels = result.otu_labels; 
-        console.log(otu_labels);
+        // console.log(otu_labels);
         var sample_values = result.sample_values;
-        console.log(sample_values);
+        // console.log(sample_values);
 
-
-        /// !!!*** REMOVE THIS SORTING and perform it in the trace
-        // Sort the sampleArray array using the top OTUs value
-        //     sampleValueArray.sort(function(a, b) {
-        //       return parseFloat(b.sample_values) - parseFloat(a.sample_values);
-        //     });
-        
-        //     // Slice the first 10 objects for plotting
-        //     var data = sampleValueArray.slice(0, 10);
-        //     console.log(data);
-        
-        //     // Reverse the array due to Plotly's defaults
-        //     data = data.reverse();
-        
 
         // Bar Chart
         var trace1 = {
@@ -97,19 +61,11 @@ function buildCharts(sampleID) {
         var data = [trace1];
         var layout = {
             xaxis: {title: "Top 10 OTUs for Subject " + sampleID},
-            /*title: {
-             text: 'Top 10 OTUs for Subject '+ sampleID,
-             font: {
-               family: 'Arial, monospace',
-               size: 18,
-               color: 'rgb(10,10,10)'
-             }
-            },*/
-           
             margin: {l: 100, r: 100, t: 40, b: 100}
         };
       Plotly.newPlot("bar", data, layout, {displaylogo: false}, {modebar: 'l'});  
 
+      
       // Bubble Chart
       var trace1 = {
           
@@ -137,11 +93,11 @@ function buildCharts(sampleID) {
 function buildMetadata(meta) {
     d3.json("data/samples.json").then((data) => {
         var metadata = data.metadata;
-        console.log(metadata);
+        // console.log(metadata);
         var metaArray = metadata.filter(samplePick => samplePick.id == meta);
-        console.log(metadata);
+        // console.log(metadata);
         var result = metaArray[0];
-        console.log(result);
+        // console.log(result);
         // Select the panel in the HTML file for assigning the metadata
         var metaPanel = d3.select("#sample-metadata");
 
@@ -189,68 +145,6 @@ function buildMetadata(meta) {
         };
         
         Plotly.newPlot('gauge', data, layout);
-        // // Enter a speed between 0 and 180
-        // var level = 175;
-
-        // // Trig to calc meter point
-        // var degrees = 180 - level,
-        //   radius = .5;
-        // var radians = degrees * Math.PI / 180;
-        // var x = radius * Math.cos(radians);
-        // var y = radius * Math.sin(radians);
-
-        // // Path: may have to change to create a better triangle
-        // var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
-        //   pathX = String(x),
-        //   space = ' ',
-        //   pathY = String(y),
-        //   pathEnd = ' Z';
-        // var path = mainPath.concat(pathX,space,pathY,pathEnd);
-
-        // var data = [{ type: 'scatter',
-        //   x: [0], y:[0],
-        //   marker: {size: 28, color:'850000'},
-        //   showlegend: false,
-        //   name: 'amount',
-        //   text: level,
-        //   hoverinfo: 'text+name'},
-        //   { values: [20/6, 20/6, 20/6, 20/6, 20/6, 20/6, 20/6, 20/6, 20],
-        //   rotation: 90,
-        //   text: ['0-1', '1-2', '2-3', '3-4',
-        //       '4-5', '5-6', '6-7', '6-7', '7-8', '8-9'],
-        //   textinfo: 'text',
-        //   textposition:'inside',	  
-        //   marker: {colors:['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
-        //             'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
-        //             'rgba(210, 206, 145, .5)', 'rgba(232, 226, 202, .5)',
-        //             'rgba(255, 255, 255, 0)']},
-        //   labels: ['151-180', '121-150', '91-120', '61-90', '31-60', '0-30', ''],
-        //   hoverinfo: 'label',
-        //   hole: .5,
-        //   type: 'pie',
-        //   showlegend: false
-        // }];
-
-        // var layout = {
-        //   shapes:[{
-        //       type: 'path',
-        //       path: path,
-        //       fillcolor: '850000',
-        //       line: {
-        //         color: '850000'
-        //       }
-        //     }],
-        //   title: 'Belly Button Washing Frequency<br> Scrubs per Week',
-        //   titlefont: {family: '"Arial", "Helvetica", san-serif'},
-        //   height: 400,
-        //   width: 450,
-        //   xaxis: {zeroline:false, showticklabels:false,
-        //       showgrid: false, range: [-1, 1]},
-        //   yaxis: {zeroline:false, showticklabels:false,
-        //       showgrid: false, range: [-1, 1]}
-        // };
-
-        // Plotly.newPlot('gauge', data, layout, {showSendToCloud:true});
     })
 }
 
